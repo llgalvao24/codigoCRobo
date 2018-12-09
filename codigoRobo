@@ -1,0 +1,62 @@
+echo "# codigoCRobo" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/llgalvao24/codigoCRobo.git
+git push -u origin master
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main() {
+    
+    char com[1000];
+    int x = 0, y = 0, eixo = 0, j = 0, erro = 0;
+    
+    scanf("%s", com);
+    
+    //este primeiro for verifica se todos os dados lidos sao E, D, F ou T
+    for(j = 0; com[j] != '\0'; j++){
+        if(com[j] == 'E' || com[j] == 'D' || com[j] == 'F' || com[j] == 'T')
+            erro++;
+    }
+    
+    //esse if imprime 0 e encerra o programa caso haja algo diferente de E, D, F ou T
+    if(j != erro){
+        printf("0");
+        return 0;
+    }
+
+    //esse for verifica a rotacao e os deslocamentos no eixo, ate o fim da string
+    for(j = 0; com[j] != '\0'; j++){
+        if(com[j] == 'E') //gira eixo no anti-horario
+            eixo--; 
+        else if(com[j] == 'D') //gira eixo no sentido horario
+            eixo++;
+        else if(com[j] == 'F'){
+            if(abs(eixo)%4 == 0)
+                x++;
+            else if(abs(eixo)%4 == 1)
+                y--;
+            else if(abs(eixo)%4 == 2)
+                x--;
+            else
+                y++;
+        }
+        else{
+            if(abs(eixo)%4 == 0)
+                x--;
+            else if(abs(eixo)%4 == 1)
+                y++;
+            else if(abs(eixo)%4 == 2)
+                x++;
+            else
+                y--;
+            
+        }
+        
+    }
+    printf("(%d,%d)", x, y);
+    
+    return 0;
+}
